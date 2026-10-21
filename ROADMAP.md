@@ -11,7 +11,15 @@
 | Noto、思源预设的楷体 | 找不到字体时报警告 | 材料、古诗等退回宋体 | 这两套字体没有楷体；可用 `font: (kai: ..)` 指定 |
 | 编译次数 | 至少两次（目录、引用、页数） | 一次 | Typst 自动迭代 |
 | 密封线学生信息 | 命令要用花括号包起来（TikZ `text along path` 的限制） | 任意内容，如 `[座位号 #examsquare(2)]` | — |
-| 题号 `question.index` | 入门文档称 `index = 0` 让题号从 1 开始，实际印出“0.” | 表示下一题题号，`index: 1` 从 1 开始 | 与 exam-zh 的实际行为一致，不与其入门文档一致 |
+
+## exam-zh 文档与代码不一致之处
+
+移植文档时发现以下两处 exam-zh 的文档与其代码不符。本模板以代码的实际效果为准，并在文档中注明。
+
+| 项目 | exam-zh 文档 | exam-zh 代码的实际效果（本模板相同） |
+|---|---|---|
+| `question/index` | 入门文档称 `index = 0` 让题号从 1 开始 | 下一题编号为 0，其示例 `01-first-exam` 的填空题从“0.”开始；本模板中 `index` 是下一题的题号，`index: 1` 从 1 开始 |
+| `\subject` 的默认宽度 | 完整文档称默认为科目的宽度（`exam-zh.cls` 的注释也写“自然宽度”） | 科目在正文字号下宽度的 2 倍（`exam-zh.cls` 第 713–715 行）；对应 `exam(subject-width:)` 的默认值 |
 
 ## 写法不同
 
@@ -27,6 +35,9 @@
 | `\fillin[{$[2,3)$}]` 的括号保护 | 直接写 `fillin[$[2, 3)$]` | Typst 参数不需要保护 |
 | `lineto` 与 `\linelistset`、按名称 `i-1`、`ii-3` 连线 | 每列一个数组，`connect: ((1, 3),)` 按序号连线 | 不需要给每列命名 |
 | `writingbox` 的 tcolorbox 选项 | `title`、`box-stroke`、`inset`、`title-format` | 没有 tcolorbox |
+| 同义键 `sealline/type` | 只有 `scope` | 每个选项只保留一个名字 |
+| `multifigures` 的同义键 `hshift`、`vshift`、`label-hshift`、`label-vshift` | `xshift`、`yshift`、`label-xshift`、`label-yshift` | 同上 |
+| `select` 标记位置的 `above`、`below` | `top`、`bottom` | 同上，与 Typst 的对齐名称一致 |
 
 ## Typst 中不需要
 
