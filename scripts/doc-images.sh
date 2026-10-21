@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Render the example pages that the docs and README show as pictures (seal
 # lines, A3 sheets, draft paper and other page-level features) into
-# docs/images, and the template's first page into template/thumbnail.png
+# docs/images, and the template's first page into thumbnail.png
 # (Typst Universe wants its longer edge at least 1080 px).
 #
 #   scripts/doc-images.sh [--font-path DIR]
@@ -39,5 +39,5 @@ shot minimal          examples/basic/00-minimal.typ 1
 check_template="$root/template/.check.typ"
 trap 'rm -f -- "$check_template"' EXIT
 sed 's|@preview/exam-zh-next:[0-9.]*|/src/lib.typ|' "$root/template/main.typ" > "$check_template"
-typst compile --root "$root" "${font_args[@]}" --pages 1 --ppi 250 "$check_template" "$root/template/thumbnail.png"
-echo "template/thumbnail.png"
+typst compile --root "$root" "${font_args[@]}" --pages 1 --ppi 250 "$check_template" "$root/thumbnail.png"
+echo "thumbnail.png"

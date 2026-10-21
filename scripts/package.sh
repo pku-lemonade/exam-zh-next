@@ -14,10 +14,10 @@ root=$(cd "$(dirname "$0")/.." && pwd)
 font_args=()
 if [ "${1:-}" = "--font-path" ]; then font_args=(--font-path "$2"); fi
 
-read -r name version < <(python3 -I -c '
+read -r name version repository < <(python3 -I -c '
 import sys, tomllib
 p = tomllib.load(open(sys.argv[1], "rb"))["package"]
-print(p["name"], p["version"])' "$root/typst.toml")
+print(p["name"], p["version"], p["repository"])' "$root/typst.toml")
 
 submit="$root/out/submit/$name/$version"
 cache="$root/out/cache"
@@ -26,8 +26,23 @@ project="$root/out/init-test"
 rm -rf -- "$submit" "$cache" "$project"
 mkdir -p "$submit" "$bundle"
 
-# Every file git tracks or would track, so build output never gets in.
-git -C "$root" ls-files -z --cached --others --exclude-standard | grep -zv '^\.gitignore$' | (cd "$root" && xargs -0 cp --parents -t "$submit")
+# The submission holds the package and the files its README links to; the
+# examples, tests, scripts and doc sources stay in the repository (the README
+# links to them at the release tag). Only files git tracks or would track.
+git -C "$root" ls-files --cached --others --exclude-standard | python3 -I -c '
+import re, sys
+readme = open(sys.argv[1]).read()
+linked = {m for m in re.findall(r"\]\(([^)#]+)\)", readme) if "://" not in m}
+dev = ("examples/", "tests/", "scripts/", "docs/", ".gitignore")
+for path in sys.stdin.read().split("\n"):
+    if path and (not path.startswith(dev) or path in linked):
+        print(path)
+missing = [m for m in linked if not __import__("os").path.exists(m)]
+assert not missing, f"README links to missing files: {missing}"
+repo = re.escape(sys.argv[2])
+stale = [u for u in re.findall(repo + r"/(?:blob|tree|releases/download)/([^/)]+)", readme) if u != "v" + sys.argv[3]]
+assert not stale, f"README links to {stale} instead of the tag v{sys.argv[3]}"
+' "$root/README.md" "$repository" "$version" | (cd "$root" && xargs -d '\n' cp --parents -t "$submit")
 
 # The bundle drops `exclude` (anchored top-level paths) and the thumbnail.
 cp -r "$submit/." "$bundle"
