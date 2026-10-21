@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # Build the folder to submit to typst/packages, then test it the way users
 # get it: the bundle (submission minus `exclude`) as `@preview/<name>:<version>`,
-# `typst init` from the template, and the README's examples.
+# `typst init` from the template, and the READMEs' examples.
 #
 #   scripts/package.sh [--font-path DIR]
 #
 # Output: out/submit/<name>/<version> (copy it to packages/preview/ in a
 # checkout of typst/packages) and out/release/{guide,reference}.pdf (attach
-# them to the GitHub release; the README links to them).
+# them to the GitHub release; the READMEs link to them).
 set -euo pipefail
 
 root=$(cd "$(dirname "$0")/.." && pwd)
@@ -30,19 +30,19 @@ mkdir -p "$submit" "$bundle"
 # examples, tests, scripts and doc sources stay in the repository (the README
 # links to them at the release tag). Only files git tracks or would track.
 git -C "$root" ls-files --cached --others --exclude-standard | python3 -I -c '
-import re, sys
-readme = open(sys.argv[1]).read()
+import glob, os, re, sys
+readme = "\n".join(open(f).read() for f in sorted(glob.glob(os.path.join(sys.argv[1], "README*.md"))))
 linked = {m for m in re.findall(r"\]\(([^)#]+)\)", readme) if "://" not in m}
 dev = ("examples/", "tests/", "scripts/", "docs/", ".gitignore")
 for path in sys.stdin.read().split("\n"):
     if path and (not path.startswith(dev) or path in linked):
         print(path)
-missing = [m for m in linked if not __import__("os").path.exists(m)]
+missing = [m for m in linked if not os.path.exists(os.path.join(sys.argv[1], m))]
 assert not missing, f"README links to missing files: {missing}"
 repo = re.escape(sys.argv[2])
 stale = [u for u in re.findall(repo + r"/(?:blob|tree|releases/download)/([^/)]+)", readme) if u != "v" + sys.argv[3]]
 assert not stale, f"README links to {stale} instead of the tag v{sys.argv[3]}"
-' "$root/README.md" "$repository" "$version" | (cd "$root" && xargs -d '\n' cp --parents -t "$submit")
+' "$root" "$repository" "$version" | (cd "$root" && xargs -d '\n' cp --parents -t "$submit")
 
 # The bundle drops `exclude` (anchored top-level paths) and the thumbnail.
 cp -r "$submit/." "$bundle"
@@ -67,17 +67,19 @@ check typst compile --package-cache-path "$cache" "${font_args[@]}" "$project/ma
 check typst compile --package-cache-path "$cache" "${font_args[@]}" --input exam-mode=teacher "$project/main.typ" "$project/main-teacher.pdf"
 echo "ok    typst init + compile (student and teacher)"
 
-# Every ```typ block of the README must compile against the bundle; blocks
+# Every ```typ block of the READMEs must compile against the bundle; blocks
 # without an import get the first block's import (and `exam` if they lack it).
 python3 -I -c '
-import re, sys
-blocks = re.findall(r"```typ\n(.*?)```", open(sys.argv[1]).read(), re.S)
-imp = next(l for l in blocks[0].splitlines() if l.startswith("#import"))
-for i, b in enumerate(blocks):
-    if "#import" not in b:
-        b = imp + "\n" + ("" if "#show: exam" in b else "#show: exam\n") + b
-    open(f"{sys.argv[2]}/readme-{i}.typ", "w").write(b)' "$root/README.md" "$project"
-for src in "$project"/readme-*.typ; do
+import glob, os, re, sys
+for readme in sorted(glob.glob(os.path.join(sys.argv[1], "README*.md"))):
+    name = os.path.basename(readme)[:-3]
+    blocks = re.findall(r"```typ\n(.*?)```", open(readme).read(), re.S)
+    imp = next(l for l in blocks[0].splitlines() if l.startswith("#import"))
+    for i, b in enumerate(blocks):
+        if "#import" not in b:
+            b = imp + "\n" + ("" if "#show: exam" in b else "#show: exam\n") + b
+        open(f"{sys.argv[2]}/{name}-{i}.typ", "w").write(b)' "$root" "$project"
+for src in "$project"/README*.typ; do
     check typst compile --package-cache-path "$cache" "${font_args[@]}" "$src" "${src%.typ}.pdf"
 done
 echo "ok    README examples"
