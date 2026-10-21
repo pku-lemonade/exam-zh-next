@@ -1,9 +1,9 @@
-// exam-zh 入门指南（Typst 版）。章节与示例对应 exam-zh 的 exam-zh-doc-basic。
+// exam-zh-next 入门指南（Typst 版）。章节与示例对应 exam-zh 的 exam-zh-doc-basic。
 // 编译：typst compile --root .. guide.typ
 
 #import "doc-style.typ": *
 
-#show: doc.with(title: [exam-zh 入门指南], subject: [Typst 版])
+#show: doc.with(title: [exam-zh-next 入门指南], subject: [Typst 版])
 
 #make-title()
 
@@ -17,7 +17,7 @@
     + 获取完整的试卷示例代码，直接复制使用；
     + 快速解决常见问题。
 
-    需要查询某个 LaTeX 命令或键值在 Typst 版中的写法时，请阅读《exam-zh API 对照手册》（`reference.typ`）：它按 LaTeX 版完整文档（`exam-zh-doc.pdf`）的顺序，逐条给出 LaTeX 写法、Typst 写法和效果。
+    需要查询某个 LaTeX 命令或键值在 Typst 版中的写法时，请阅读《exam-zh-next API 对照手册》（`reference.typ`）：它按 LaTeX 版完整文档（`exam-zh-doc.pdf`）的顺序，逐条给出 LaTeX 写法、Typst 写法和效果。
 
     *推荐学习路径：*第 1 章创建第一份试卷 → 第 2 章理解基础概念 → 按需阅读第 3、4 章 → 参考第 5 章的完整示例 → 遇到问题查第 6 章 FAQ。
 ]
@@ -31,7 +31,7 @@
 ==== 试卷基本结构
 
 #code-only(```typ
-#import "@preview/exam-zh:0.1.0": *
+#import "@preview/exam-zh-next:0.1.0": *
 
 // 配置（可选）
 #show: exam.with(
@@ -178,7 +178,7 @@ Typst 有两种用法：
 模板通过第一行的 `#import` 自动下载，不需要单独安装：
 
 #code-only(```typ
-#import "@preview/exam-zh:0.1.0": *
+#import "@preview/exam-zh-next:0.1.0": *
 ```)
 
 === 检查安装
@@ -186,7 +186,7 @@ Typst 有两种用法：
 创建一个测试文件 `test.typ`：
 
 #code-only(```typ
-#import "@preview/exam-zh:0.1.0": *
+#import "@preview/exam-zh-next:0.1.0": *
 #show: exam
 
 安装成功！
@@ -225,7 +225,7 @@ typst compile test.typ
 让我们从最简单的例子开始。创建一个新文件 `my-first-exam.typ`，输入以下内容：
 
 #demo(setup: (meta: (title: [数学测试], subject: [数学])), ```typ
-#import "@preview/exam-zh:0.1.0": *
+#import "@preview/exam-zh-next:0.1.0": *
 
 // 设置试卷标题和科目
 #show: exam.with(title: [数学测试], subject: [数学])
@@ -253,7 +253,7 @@ typst compile my-first-exam.typ
 
 *恭喜你！*你已经创建了第一份试卷。现在让我们理解这段代码：
 
-+ `#import "@preview/exam-zh:0.1.0": *`：引入 exam-zh 模板；
++ `#import "@preview/exam-zh-next:0.1.0": *`：引入 exam-zh 模板；
 + `#show: exam.with(title: ..., subject: ...)`：把整份文档交给 `exam` 模板排版，同时设置标题和科目；
 + `#make-title()`：生成标题和科目；
 + `#question[...]`：创建一道题目，方括号里是题干；
@@ -288,7 +288,7 @@ typst compile --input exam-mode=teacher my-first-exam.typ my-first-exam-teacher.
 让我们创建一份更完整的试卷：
 
 #demo(versions: true, setup: (meta: (title: [数学测试], subject: [数学])), ```typ
-#import "@preview/exam-zh:0.1.0": *
+#import "@preview/exam-zh-next:0.1.0": *
 #show: exam.with(title: [数学测试], subject: [数学])
 
 #make-title()
@@ -410,7 +410,7 @@ LaTeX 用 `\begin{...}` 和 `\end{...}` 包裹的环境，在 Typst 中就是函
 每份试卷都以两行开头：引入模板，再把整份文档交给 `exam` 排版。
 
 #code-only(```typ
-#import "@preview/exam-zh:0.1.0": *
+#import "@preview/exam-zh-next:0.1.0": *
 #show: exam
 ```)
 
@@ -419,7 +419,7 @@ LaTeX 用 `\begin{...}` 和 `\end{...}` 包裹的环境，在 Typst 中就是函
 一份完整试卷的结构：
 
 #code-only(```typ
-#import "@preview/exam-zh:0.1.0": *   // 引入模板
+#import "@preview/exam-zh-next:0.1.0": *   // 引入模板
 
 // === 配置（对应 LaTeX 的导言区）===
 #show: exam.with(
@@ -571,7 +571,7 @@ $x y + 1 = 0$    // 正确：字母之间加空格
 + 阅读第 3 章，学习如何创建各种题型；
 + 尝试修改 `examples/basic/` 中的示例；
 + 遇到问题时查阅第 6 章 FAQ；
-+ 需要详细参数时查阅《exam-zh API 对照手册》。
++ 需要详细参数时查阅《exam-zh-next API 对照手册》。
 
 不要试图一次性学完所有内容，而是*边用边学、遇到问题再查*。
 
@@ -588,7 +588,7 @@ $x y + 1 = 0$    // 正确：字母之间加空格
 标题和科目写在 `exam` 中，`#make-title()` 把它们排出来：
 
 #demo(setup: (meta: (title: [2024年春季期中考试], subject: [数学])), ```typ
-#import "@preview/exam-zh:0.1.0": *
+#import "@preview/exam-zh-next:0.1.0": *
 #show: exam.with(title: [2024年春季期中考试], subject: [数学])
 
 #make-title()
@@ -874,7 +874,7 @@ Typst 中答案写在内容块 `[...]` 里，大部分符号都可以直接写�
 *推荐结构：*把 `solution` 放在它所对应的 `question` 或 `problem` 内部，并置于题干之后，题目与解答的对应关系最清楚：
 
 #demo(setup: (solution: (show-solution: "show-stay")), ```typ
-#import "@preview/exam-zh:0.1.0": *
+#import "@preview/exam-zh-next:0.1.0": *
 #show: exam.with(solution: (show-solution: "show-stay"))
 
 #question[
@@ -1018,7 +1018,7 @@ Typst 中答案写在内容块 `[...]` 里，大部分符号都可以直接写�
 ]
 
 #demo(versions: true, setup: (meta: (title: [2024年春季期中考试], subject: [数学])), ```typ
-#import "@preview/exam-zh:0.1.0": *
+#import "@preview/exam-zh-next:0.1.0": *
 #show: exam.with(title: [2024年春季期中考试], subject: [数学])
 
 #make-title()
@@ -1256,7 +1256,7 @@ LaTeX 版要把 `\geometry` 放进 `\AtEndPreamble`；Typst 版直接写在 `pag
 *综合示例：让试卷更紧凑以节约纸张*
 
 #code-only(```typ
-#import "@preview/exam-zh:0.1.0": *
+#import "@preview/exam-zh-next:0.1.0": *
 
 #show: exam.with(
   // === 页边距 ===
@@ -1379,7 +1379,7 @@ LaTeX 版要把 `\geometry` 放进 `\AtEndPreamble`；Typst 版直接写在 `pag
 )
 ```)
 
-更多功能和详细参数，请查阅《exam-zh API 对照手册》。
+更多功能和详细参数，请查阅《exam-zh-next API 对照手册》。
 
 = 完整示例
 
@@ -1402,11 +1402,11 @@ LaTeX 版要把 `\geometry` 放进 `\AtEndPreamble`；Typst 版直接写在 `pag
     + 查看生成的 PDF 文件。
 
     *方法二：复制修改*
-    + 复制示例文件到你的工作目录，把第一行改为 `#import "@preview/exam-zh:0.1.0": *`；
+    + 复制示例文件到你的工作目录，把第一行改为 `#import "@preview/exam-zh-next:0.1.0": *`；
     + 修改标题、科目、题目内容；
     + 编译生成你自己的试卷，用 `--input exam-mode=teacher` 编译教师版。
 
-    *方法三：*运行 `typst init @preview/exam-zh` 生成一份新试卷。
+    *方法三：*运行 `typst init @preview/exam-zh-next` 生成一份新试卷。
 
     *推荐：*从 `01-first-exam.typ` 开始，这是最适合新手的模板。
 ]
@@ -1441,7 +1441,7 @@ LaTeX 版要把 `\geometry` 放进 `\AtEndPreamble`；Typst 版直接写在 `pag
 完整代码见 `examples/basic/01-first-exam.typ`，这里展示主要结构：
 
 #demo(versions: true, setup: (meta: (title: [2024年春季期中考试], subject: [数学])), ```typ
-#import "@preview/exam-zh:0.1.0": *
+#import "@preview/exam-zh-next:0.1.0": *
 #show: exam.with(title: [2024年春季期中考试], subject: [数学])
 
 // 试卷抬头
@@ -1601,7 +1601,7 @@ LaTeX 版要把 `\geometry` 放进 `\AtEndPreamble`；Typst 版直接写在 `pag
 - 尝试修改示例文件，理解各部分的作用；
 - 参考第 3 章学习更多题型和功能；
 - 遇到问题查阅第 6 章 FAQ；
-- 需要更多功能时查阅《exam-zh API 对照手册》。
+- 需要更多功能时查阅《exam-zh-next API 对照手册》。
 
 = 常见问题 FAQ
 
@@ -1614,7 +1614,7 @@ LaTeX 版要把 `\geometry` 放进 `\AtEndPreamble`；Typst 版直接写在 `pag
 创建一个测试文件：
 
 #code-only(```typ
-#import "@preview/exam-zh:0.1.0": *
+#import "@preview/exam-zh-next:0.1.0": *
 #show: exam
 
 测试成功
@@ -1650,7 +1650,7 @@ LaTeX 版依赖 XeLaTeX 处理中文和系统字体。Typst 原生支持 Unicode
 
 === Q5：如何在线使用？
 
-LaTeX 版在 Overleaf 上需要额外加 `\let\stop\empty`。Typst 版在 #link("https://typst.app")[typst.app] 中新建项目，写上 `#import "@preview/exam-zh:0.1.0": *` 即可，不需要任何额外设置。
+LaTeX 版在 Overleaf 上需要额外加 `\let\stop\empty`。Typst 版在 #link("https://typst.app")[typst.app] 中新建项目，写上 `#import "@preview/exam-zh-next:0.1.0": *` 即可，不需要任何额外设置。
 
 === Q6：Typst 版本过旧编译失败怎么办？
 
@@ -1975,7 +1975,7 @@ LaTeX 版需要写 `\fillin[{$[2,3)$}]`；Typst 版直接写 `#fillin[$[2, 3)$]`
 #set heading(numbering: none)
 = 进阶学习指引
 
-== 《exam-zh API 对照手册》导航
+== 《exam-zh-next API 对照手册》导航
 
 《API 对照手册》（`reference.typ`）按 LaTeX 版完整文档 `exam-zh-doc.pdf` 第 3 章“使用说明”的顺序排列：
 - *命令和环境介绍*：每个 LaTeX 命令和环境对应的 Typst 函数，附原文档的全部示例；

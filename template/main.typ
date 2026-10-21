@@ -1,4 +1,4 @@
-#import "@preview/exam-zh:0.1.0": *
+#import "@preview/exam-zh-next:0.1.0": *
 
 // 学生版：typst compile main.typ
 // 教师版：typst compile --input exam-mode=teacher main.typ main-teacher.pdf

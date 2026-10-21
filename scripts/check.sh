@@ -34,7 +34,7 @@ compile() {
 # The template imports the published package; check it against the sources.
 check_template="$root/template/.check.typ"
 trap 'rm -f -- "$check_template"' EXIT
-sed 's|@preview/exam-zh:[0-9.]*|/src/lib.typ|' "$root/template/main.typ" > "$check_template"
+sed 's|@preview/exam-zh-next:[0-9.]*|/src/lib.typ|' "$root/template/main.typ" > "$check_template"
 
 for src in "$root"/examples/*.typ "$root"/examples/basic/*.typ "$check_template"; do
     name=$(basename "$src" .typ)

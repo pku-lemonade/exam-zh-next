@@ -1,11 +1,11 @@
-// exam-zh API 对照手册。章节编号与 exam-zh 的完整文档 exam-zh-doc 相同：
+// exam-zh-next API 对照手册。章节编号与 exam-zh 的完整文档 exam-zh-doc 相同：
 // 每个 LaTeX 命令、环境和键值都给出 Typst 写法、说明，以及原文档示例的
 // LaTeX 代码、Typst 代码和效果。
 // 编译：typst compile --root .. reference.typ
 
 #import "doc-style.typ": *
 
-#show: doc.with(title: [exam-zh API 对照手册], subject: [LaTeX → Typst])
+#show: doc.with(title: [exam-zh-next API 对照手册], subject: [LaTeX → Typst])
 
 #make-title()
 
@@ -35,14 +35,14 @@
 LaTeX 版通过 `tlmgr install exam-zh` 安装。Typst 版不需要安装：在文件开头写
 
 #code-only(```typ
-#import "@preview/exam-zh:0.1.0": *
+#import "@preview/exam-zh-next:0.1.0": *
 ```)
 
 Typst 会自动下载并缓存模板。升级时把版本号改为新版本即可。
 
 == 手动安装
 
-把本仓库放到 Typst 的本地包目录（Linux 为 `~/.local/share/typst/packages/local/exam-zh/0.1.0`，macOS 为 `~/Library/Application Support/typst/packages/local/exam-zh/0.1.0`，Windows 为 `%APPDATA%\typst\packages\local\exam-zh\0.1.0`），然后导入 `@local/exam-zh:0.1.0`；或者直接导入仓库中 `src/lib.typ` 的路径。
+把本仓库放到 Typst 的本地包目录（Linux 为 `~/.local/share/typst/packages/local/exam-zh-next/0.1.0`，macOS 为 `~/Library/Application Support/typst/packages/local/exam-zh-next/0.1.0`，Windows 为 `%APPDATA%\typst\packages\local\exam-zh\0.1.0`），然后导入 `@local/exam-zh-next:0.1.0`；或者直接导入仓库中 `src/lib.typ` 的路径。
 
 == 模板组成
 
@@ -78,7 +78,7 @@ Typst 会自动下载并缓存模板。升级时把版本号改为新版本即�
 \end{document}
 ```, ```typ
 // main.typ
-#import "@preview/exam-zh:0.1.0": *
+#import "@preview/exam-zh-next:0.1.0": *
 #show: exam
 
 = Welcome to exam-zh!
