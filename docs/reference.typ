@@ -24,7 +24,7 @@
 
 = 介绍
 
-试卷排版是中小学教师经常遇到的需求。LaTeX 版 exam-zh（作者 Zeping Lee，维护者 Kangwei Xia、Lijun Guo）借鉴 exam、jnuexam、BHCexam 等前人的工作，重新设计并用 LaTeX3 编写，构建了一套简洁的接口；它自 2024 年 4 月 26 日起停止维护。
+试卷排版是中小学教师经常遇到的需求。LaTeX 版 exam-zh（作者 Zeping Lee，维护者 Kangwei Xia、Lijun Guo）借鉴 exam、jnuexam、BHCexam 等前人的工作，重新设计并用 LaTeX3 编写，构建了一套简洁的接口。本手册对应 exam-zh v0.3.8（2026 年 8 月 21 日发布）。
 
 本模板用 Typst 重新实现 exam-zh：沿用它的设计、选项名称和示例，接口改为 Typst 的函数与字典。Typst 一次编译即可完成目录、页码和答案后置，也不需要 `-shell-escape` 来生成师生两版。
 

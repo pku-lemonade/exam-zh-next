@@ -4,7 +4,7 @@
 
 Typeset Chinese exam papers (试卷) in Typst, with student and teacher versions
 from one source. A port of the LaTeX class [exam-zh](https://github.com/xkwxdyy/exam-zh)
-that keeps its option names. It is independent and not affiliated with the exam-zh authors.
+that keeps its option names. It is independent and not affiliated with the exam-zh authors, and currently matches exam-zh v0.3.8.
 
 | Student version | Teacher version | Seal line, A3 two-up |
 |:-:|:-:|:-:|

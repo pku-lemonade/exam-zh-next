@@ -5,7 +5,7 @@
 > Typeset Chinese exam papers in Typst, with student and teacher versions from one source.
 > A port of the LaTeX class exam-zh. [English README](README.en.md)
 
-用 Typst 排版中文试卷，移植自 LaTeX 试卷模板 [exam-zh](https://github.com/xkwxdyy/exam-zh)：一份源码同时生成学生版与教师版。本项目为独立移植，并非 exam-zh 官方项目。
+用 Typst 排版中文试卷，移植自 LaTeX 试卷模板 [exam-zh](https://github.com/xkwxdyy/exam-zh)：一份源码同时生成学生版与教师版。本项目为独立移植，并非 exam-zh 官方项目；目前对齐 exam-zh v0.3.8。
 
 | 学生版 | 教师版 | 密封线、A3 双栏 |
 |:-:|:-:|:-:|
